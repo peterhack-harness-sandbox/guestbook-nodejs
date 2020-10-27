@@ -1,6 +1,6 @@
 {
-  "db": {
-    "name": "db",
-    "connector": "memory"
+  "in-memory": {
+    "name": "in-memory",
+    "connector": "kv-memory"
   }
 }

@@ -3,6 +3,25 @@
 In Development!
 - Loopback port of the Guestbook App written in Go
 
+## To run
+
+### Option 1: Running locally using node
+
+```bash
+cd src
+npm install
+npm start
+```
+
+### Option 2: Running the container
+
+```bash
+docker run -p 3000:3000 odrodrig/guestbook-nodejs:latest
+```
+
+The application can be accessed through http://localhost:3000/
+The API Explorer can be accessed through http://localhost:3000/explorer
+
 ### Generate from OpenAPI
 
 ```
