@@ -20,7 +20,41 @@ docker run -p 3000:3000 odrodrig/guestbook-nodejs:latest
 ```
 
 The application can be accessed through http://localhost:3000/
+
 The API Explorer can be accessed through http://localhost:3000/explorer
+
+## Datasources
+
+This application has a KeyValueModel representation for the data model which is compatible with Redis and other key value stores. By default the app stores data in memory which means that the data does not persist if the app crashes or goes down for any reason. You have the option to use Redis to persist the data from the application by adding the following environment variables:
+
+Required:
+
+- REDIS_HOST - The hostname to access Redis
+- REDIS_PORT - The port to access Redis
+
+Optional:
+
+- REDIS_PASS - The password to access Redis. If you are using an unsecured Redis instance, leave this blank.
+- REDIS_DB - The name of the database within Redis. This can be left blank and the default database name '0' will be used.
+
+You must also change the datasource listed in `src/server/model-config.json` to `redis` as seen below:
+
+  ```json
+  "list": {
+      "dataSource": "redis",
+      "public": true
+    }
+  ```
+
+If you would like to change back to the in-memory datasource, edit the datasource under the `list` model in `src/server/model-config.json` to `in-memory` as seen below:
+
+```json
+  "list": {
+      "dataSource": "in-memory",
+      "public": true
+    }
+  }
+```
 
 ### Generate from OpenAPI
 

@@ -1,0 +1,117 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: guestbook-kv
+  description: guestbook-kv
+basePath: /api
+paths:
+  '/lists/{key}':
+    get:
+      tags:
+        - list
+      operationId: list.get
+      parameters:
+        - name: key
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/x-any'
+      deprecated: false
+    put:
+      tags:
+        - list
+      operationId: list.set
+      parameters:
+        - name: key
+          in: path
+          required: true
+          type: string
+        - name: value
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/x-any'
+        - name: ttl
+          in: query
+          description: time to live in milliseconds
+          required: false
+          type: number
+          format: double
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  '/lists/{key}/expire':
+    put:
+      tags:
+        - list
+      operationId: list.expire
+      parameters:
+        - name: key
+          in: path
+          required: true
+          type: string
+        - name: ttl
+          in: formData
+          required: true
+          type: number
+          format: double
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  '/lists/{key}/ttl':
+    get:
+      tags:
+        - list
+      operationId: list.ttl
+      parameters:
+        - name: key
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/x-any'
+      deprecated: false
+  /lists/keys:
+    get:
+      tags:
+        - list
+      operationId: list.keys
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              type: string
+      deprecated: false
+tags:
+  - name: list
+consumes:
+  - application/json
+  - application/x-www-form-urlencoded
+  - application/xml
+  - text/xml
+produces:
+  - application/json
+  - application/xml
+  - text/xml
+  - application/javascript
+  - text/javascript
+definitions:
+  x-any:
+    properties: {}
