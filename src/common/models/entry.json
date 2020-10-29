@@ -1,22 +1,17 @@
 {
-  "name": "Person",
+  "name": "entry",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "id": {
-      "type": "number"
+    "message": {
+      "type": "string",
+      "required": true
     },
-    "firstname": {
-      "type": "string"
-    },
-    "lastname": {
-      "type": "string"
-    },
-    "username": {
-      "type": "string"
+    "timestamp": {
+      "type": "date"
     }
   },
   "validations": [],

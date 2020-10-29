@@ -13,46 +13,8 @@
       "./mixins"
     ]
   },
-  "User": {
-    "dataSource": "db"
-  },
-  "AccessToken": {
-    "dataSource": "db",
-    "public": false
-  },
-  "ACL": {
-    "dataSource": "db",
-    "public": false
-  },
-  "RoleMapping": {
-    "dataSource": "db",
-    "public": false,
-    "options": {
-      "strictObjectIDCoercion": true
-    }
-  },
-  "Role": {
-    "dataSource": "db",
-    "public": false
-  },
-  "Message": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Person": {
-    "dataSource": "db",
-    "public": false
-  },
-  "Contact": {
-    "dataSource": "db",
-    "public": false
-  },
-  "Address": {
-    "dataSource": "db",
-    "public": false
-  },
-  "Ping": {
-    "dataSource": "db",
+  "entry": {
+    "dataSource": "in-memory",
     "public": true
   }
 }
