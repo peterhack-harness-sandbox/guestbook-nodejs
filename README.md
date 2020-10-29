@@ -16,7 +16,7 @@ npm start
 ### Option 2: Running the container
 
 ```bash
-docker run -p 3000:3000 odrodrig/guestbook-nodejs:latest
+docker run -p 3000:3000 odrodrig/guestbook-nodejs:key-value
 ```
 
 The application can be accessed through http://localhost:3000/
@@ -46,14 +46,25 @@ You must also change the datasource listed in `src/server/model-config.json` to 
     }
   ```
 
-If you would like to change back to the in-memory datasource, edit the datasource under the `list` model in `src/server/model-config.json` to `in-memory` as seen below:
+
+Next, you will need to replace the `src/server/datasources.json` file with the following:
 
 ```json
-  "list": {
-      "dataSource": "in-memory",
-      "public": true
-    }
+{
+  "in-memory": {
+    "name": "in-memory",
+    "connector": "kv-memory"
+  },
+  "redis": {
+    "host": "${REDIS_HOST}",
+    "port": "${REDIS_PORT}",
+    "url": "",
+    "password": "${REDIS_PASS}",
+    "name": "redis",
+    "db": "${REDIS_DB}",
+    "connector": "kv-redis"
   }
+}
 ```
 
 ### Generate from OpenAPI
