@@ -1,7 +1,7 @@
 # guestbook-nodejs
 
 In Development!
-- Loopback port of the Guestbook App written in Go
+- Loopback port of the Guestbook App written in Go. For the Go app, go to [https://github.com/IBM/guestbook](https://github.com/IBM/guestbook).
 
 ## To run
 
@@ -66,7 +66,22 @@ The `entry` model has the following properties:
   - timestamp: 
     - type: [Javascript date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
 
-### Generate from OpenAPI
+### Contribute
+
+1. Fork the `guestbook-nodejs` repo to your own organization.
+1. Clone your fork to your local host,
+
+    ```
+    export USERNAME=<your-github-username>
+    git clone https://github.com/$USERNAME/guestbook-nodejs.git
+    cd guestbook-nodejs
+    ```
+
+1. Create a Pull Request to contribute,
+1. For a list of `Issues`, go to [https://github.com/IBM/guestbook-nodejs/issues](https://github.com/IBM/guestbook-nodejs/issues),
+1. For first-time contributors, filter issues labeled with `good first issue`.
+
+### Generate App from OpenAPI Spec
 
 ```
 % lb -v
