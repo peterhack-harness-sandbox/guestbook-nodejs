@@ -7,10 +7,10 @@ $(document).ready(function() {
   var hostAddressElement = $("#guestbook-host-address");
 
   var appendGuestbookEntries = function() {
-    $.getJSON("/api/lists/guestbook/", function(list) {
+    $.getJSON("/api/entries", function(entries) {
       entriesElement.empty();
-      $.each(list.entries, function(key, val) {
-        entriesElement.append("<p>" + val + "</p>");
+      $.each(entries, function(key, val) {
+        entriesElement.append("<p>" + val.message + "</p>");
       });
     });
   }
@@ -20,37 +20,18 @@ $(document).ready(function() {
     var entryValue = entryContentElement.val();
     if (entryValue.length > 0) {
 
-      if (entriesElement.toArray()[0].childElementCount == 0) {
-        console.log("Entries element is empty");
-        $.ajax({
-          url: "/api/lists/guestbook",
-          method: "PUT",
-          data: {"entries": [entryValue]},
-          success: appendGuestbookEntries
-        });
-      } else {
-        console.log("entries element is not empty");
-        entriesElement.append("<p>...</p>");
-        $.getJSON("/api/lists/guestbook/", function(list) {
+      console.log("UTC " + Date.UTC());
+      console.log("Now " + Date.now());
 
-          console.log(list);
-  
-          list.entries.push(entryValue);
-  
-          $.ajax({
-            url: "/api/lists/guestbook",
-            method: "PUT",
-            data: list,
-            success: appendGuestbookEntries
-          });
-  
-        });
-
-      }
-    
-    
-
-	  entryContentElement.val("")
+      $.ajax({
+        url: "/api/entries",
+        method: "POST",
+        data: {"message": entryValue, timestamp: Date()},
+        success: appendGuestbookEntries
+      });
+      entriesElement.append("<p>...</p>");
+        
+      entryContentElement.val("")
     }
     return false;
   }
@@ -62,7 +43,7 @@ $(document).ready(function() {
   // Poll every second.
   (function fetchGuestbook() {
       console.log("Getting list");
-      $.getJSON("/api/lists/guestbook").done(appendGuestbookEntries).always(
+      $.getJSON("/api/entries").done(appendGuestbookEntries).always(
         function() {
           setTimeout(fetchGuestbook, 1000);
         });

@@ -25,36 +25,46 @@ The API Explorer can be accessed through http://localhost:3000/explorer
 
 ## Datasources
 
-This application has a KeyValueModel representation for the data model which is compatible with Redis and other key value stores. By default the app stores data in memory which means that the data does not persist if the app crashes or goes down for any reason. You have the option to use Redis to persist the data from the application by adding the following environment variables:
+This application has a PersistedModel representation for the data model which is compatible with Mongo and other similar databases. By default the app stores data in memory which means that the data does not persist if the app crashes or goes down for any reason. You have the option to use Mongo to persist the data from the application by adding the following environment variables:
 
 Required:
 
-- REDIS_HOST - The hostname to access Redis
-- REDIS_PORT - The port to access Redis
+- MONGO_HOST - The hostname to access Redis
+- MONGO_PORT - The port to access Redis
 
 Optional:
 
-- REDIS_PASS - The password to access Redis. If you are using an unsecured Redis instance, leave this blank.
-- REDIS_DB - The name of the database within Redis. This can be left blank and the default database name '0' will be used.
+- MONGO_USER - The username used to access Mongo. If you are using an unsecured Mongo instance, leave this blank.
+- MONGO_PASS - The password to access Mongo. If you are using an unsecured Mongo instance, leave this blank.
+- MONGO_DB - The name of the database within Mongo. This can be left blank and the default database name will be used.
 
-You must also change the datasource listed in `src/server/model-config.json` to `redis` as seen below:
+You must also change the datasource listed in `src/server/model-config.json` to `mongo` as seen below:
 
   ```json
-  "list": {
-      "dataSource": "redis",
+  "entry": {
+      "dataSource": "mongo",
       "public": true
     }
   ```
 
-If you would like to change back to the in-memory datasource, edit the datasource under the `list` model in `src/server/model-config.json` to `in-memory` as seen below:
+If you would like to change back to the in-memory datasource, edit the datasource under the `entry` model in `src/server/model-config.json` to `in-memory` as seen below:
 
 ```json
-  "list": {
+  "entry": {
       "dataSource": "in-memory",
       "public": true
     }
   }
 ```
+
+### Data Model
+
+The `entry` model has the following properties:
+
+  - message: 
+    - type: String
+  - timestamp: 
+    - type: [Javascript date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
 
 ### Generate from OpenAPI
 

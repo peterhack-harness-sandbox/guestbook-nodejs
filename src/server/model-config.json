@@ -13,7 +13,7 @@
       "./mixins"
     ]
   },
-  "list": {
+  "entry": {
     "dataSource": "in-memory",
     "public": true
   }
