@@ -1,9 +1,37 @@
 # guestbook-nodejs
 
 In Development!
-- Loopback port of the Guestbook App written in Go
+- Loopback port of the Guestbook App written in Go. For the Go app, go to [https://github.com/IBM/guestbook](https://github.com/IBM/guestbook).
 
-### Generate from OpenAPI
+
+### Run with node
+
+```
+cd src
+npm install --save
+node .
+```
+
+### Run with Docker
+
+
+
+### Contribute
+
+1. Fork the `guestbook-nodejs` repo to your own organization.
+1. Clone your fork to your local host,
+
+    ```
+    export USERNAME=<your-github-username>
+    git clone https://github.com/$USERNAME/guestbook-nodejs.git
+    cd guestbook-nodejs
+    ```
+
+1. Create a Pull Request to contribute,
+1. For a list of `Issues`, go to [https://github.com/IBM/guestbook-nodejs/issues](https://github.com/IBM/guestbook-nodejs/issues),
+1. For first-time contributors, filter issues labeled with `good first issue`.
+
+### Generate App from OpenAPI Spec
 
 ```
 % lb -v
@@ -119,3 +147,32 @@ Web server listening at: http://localhost:3000
 Browse your REST API at http://localhost:3000/explorer
 
 ```
+
+### Add Static Web Page
+
+Docs: [https://loopback.io/doc/en/lb3/Add-a-static-web-page.html](https://loopback.io/doc/en/lb3/Add-a-static-web-page.html),
+
+1. rename `src/server/boot/root.js` to `src/server/boot/root.js_usestatic`
+1. replace the `files` middleware config in `src/server/middleware.json`,
+
+    ```
+    "files": {
+    "loopback#static": {
+        "params": "$!../client" 
+    }
+    },
+    ```
+
+1. add a new `index.html`,
+
+    ```
+    cat < src/client/index.html <<EOF
+    <head><title>Guestbook</title></head>
+    <body>
+        <h1>Guestbook</h1>
+        <p>Hello World... </p>
+    </body>
+    EOF
+    ```
+
+1. restart your app,
