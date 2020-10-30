@@ -16,7 +16,7 @@ npm start
 ### Option 2: Running the container
 
 ```bash
-docker run -p 3000:3000 odrodrig/guestbook-nodejs:latest
+docker run -p 3000:3000 -d odrodrig/guestbook-nodejs:latest
 ```
 
 The application can be accessed through http://localhost:3000/
@@ -29,8 +29,8 @@ This application has a PersistedModel representation for the data model which is
 
 Required:
 
-- MONGO_HOST - The hostname to access Redis
-- MONGO_PORT - The port to access Redis
+- MONGO_HOST - The hostname to access Mongo
+- MONGO_PORT - The port to access Mongo
 
 Optional:
 
@@ -47,14 +47,28 @@ You must also change the datasource listed in `src/server/model-config.json` to 
     }
   ```
 
-If you would like to change back to the in-memory datasource, edit the datasource under the `entry` model in `src/server/model-config.json` to `in-memory` as seen below:
+Next, you will need to replace the src/server/datasources.json file with the following:
 
 ```json
-  "entry": {
-      "dataSource": "in-memory",
-      "public": true
-    }
+{
+  "in-memory": {
+    "name": "in-memory",
+    "localStorage": "",
+    "file": "",
+    "connector": "memory"
+  },
+  "mongo": {
+    "host": "${MONGO_HOST}",
+    "port": "${MONGO_PORT}",
+    "url": "",
+    "database": "${MONGO_DB}",
+    "password": "${MONGO_PASS}",
+    "name": "mongo",
+    "user": "${MONGO_USER}",
+    "useNewUrlParser": true,
+    "connector": "mongodb"
   }
+}
 ```
 
 ### Data Model
