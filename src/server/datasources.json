@@ -2,14 +2,5 @@
   "in-memory": {
     "name": "in-memory",
     "connector": "kv-memory"
-  },
-  "redis": {
-    "host": "${REDIS_HOST}",
-    "port": "${REDIS_PORT}",
-    "url": "",
-    "password": "${REDIS_PASS}",
-    "name": "redis",
-    "db": "${REDIS_DB}",
-    "connector": "kv-redis"
   }
 }
