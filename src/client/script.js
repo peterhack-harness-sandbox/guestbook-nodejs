@@ -6,12 +6,23 @@ $(document).ready(function() {
   var entryContentElement = $("#guestbook-entry-content");
   var hostAddressElement = $("#guestbook-host-address");
 
-  var appendGuestbookEntries = function() {
-    $.getJSON("/api/entries", function(entries) {
-      entriesElement.empty();
-      $.each(entries, function(key, val) {
-        entriesElement.append("<p>" + val.message + "</p>");
-      });
+  var entries = [];
+
+  var appendGuestbookEntries = function(msg) {
+    // $.getJSON("/api/entries", function(entries) {
+    //   entriesElement.empty();
+    //   $.each(entries, function(key, val) {
+    //     entriesElement.append("<p>" + val.message + "</p>");
+    //   });
+    // });
+    console.log("msg received");
+    entries.push(msg);
+
+    console.log(entries);
+    entriesElement.empty();
+    $.each(entries, function(key, val) {
+
+      entriesElement.append("<p>" + val + "</p>");
     });
   }
 
@@ -20,16 +31,13 @@ $(document).ready(function() {
     var entryValue = entryContentElement.val();
     if (entryValue.length > 0) {
 
-      console.log("UTC " + Date.UTC());
-      console.log("Now " + Date.now());
 
       $.ajax({
-        url: "/api/entries",
+        url: "/api/entries/greet",
         method: "POST",
-        data: {"message": entryValue, timestamp: Date()},
-        success: appendGuestbookEntries
+        data: {"msg": entryValue},
+        success: appendGuestbookEntries(entryValue)
       });
-      entriesElement.append("<p>...</p>");
         
       entryContentElement.val("")
     }
@@ -42,10 +50,11 @@ $(document).ready(function() {
 
   // Poll every second.
   (function fetchGuestbook() {
-      console.log("Getting list");
-      $.getJSON("/api/entries").done(appendGuestbookEntries).always(
-        function() {
-          setTimeout(fetchGuestbook, 1000);
-        });
+      // console.log("Getting list");
+      // $.getJSON("/api/entries").done(appendGuestbookEntries).always(
+      //   function() {
+      //     setTimeout(fetchGuestbook, 1000);
+      //   });
+      return entries;
   })()
 });
