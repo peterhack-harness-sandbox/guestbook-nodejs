@@ -8,21 +8,54 @@ module.exports = function(Entry) {
 
         // console.log("testing " + msg);
         fs.appendFile('logs/debug.txt', "Recevied message: "+ msg +"\n", function (err) {
-            if (err) throw err;
             console.log('Debug stagement printed');
         });
 
         fs.appendFile('data/cache.txt', msg+"\n", function (err) {
-            if (err) throw err;
             console.log('Saved in cache!');
+
+            fs.readFile('data/cache.txt','utf8', (err, data) => {
+
+                var list = [];
+
+                if (data) {
+                    list = data.split("\n");
+                    list.pop();
+                }
+                
+    
+                cb(null, list);
+    
+            });
+
         });
 
-        cb(null, 'Greetings... ' + msg);
-      }
+    }
+
+    Entry.read = function(cb) {
+
+        var list = [];
+
+        fs.readFile('data/cache.txt','utf8', (err, data) => {
+
+            if (data) {
+                list = data.split("\n");
+                list.pop();
+            }
+            
+
+            cb(null, list);
+
+        });
+    }
   
     Entry.remoteMethod('greet', {
         accepts: {arg: 'msg', type: 'string'},
-        returns: {arg: 'greeting', type: 'string'}
+        returns: {arg: 'list', type: 'array'}
+    });
+    Entry.remoteMethod('read', {
+        returns: {arg: 'list', type: 'array'},
+        http: {verb: 'get', status: 200}
     });
 
 };

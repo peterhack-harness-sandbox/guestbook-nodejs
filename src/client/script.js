@@ -6,22 +6,9 @@ $(document).ready(function() {
   var entryContentElement = $("#guestbook-entry-content");
   var hostAddressElement = $("#guestbook-host-address");
 
-  var entries = [];
-
-  var appendGuestbookEntries = function(msg) {
-    // $.getJSON("/api/entries", function(entries) {
-    //   entriesElement.empty();
-    //   $.each(entries, function(key, val) {
-    //     entriesElement.append("<p>" + val.message + "</p>");
-    //   });
-    // });
-    console.log("msg received");
-    entries.push(msg);
-
-    console.log(entries);
+  var appendGuestbookEntries = function(data) {
     entriesElement.empty();
-    $.each(entries, function(key, val) {
-
+    $.each(data.list, function(key, val) {
       entriesElement.append("<p>" + val + "</p>");
     });
   }
@@ -36,7 +23,7 @@ $(document).ready(function() {
         url: "/api/entries/greet",
         method: "POST",
         data: {"msg": entryValue},
-        success: appendGuestbookEntries(entryValue)
+        success: appendGuestbookEntries
       });
         
       entryContentElement.val("")
@@ -50,11 +37,11 @@ $(document).ready(function() {
 
   // Poll every second.
   (function fetchGuestbook() {
-      // console.log("Getting list");
-      // $.getJSON("/api/entries").done(appendGuestbookEntries).always(
-      //   function() {
-      //     setTimeout(fetchGuestbook, 1000);
-      //   });
-      return entries;
+      $.getJSON("/api/entries/read", appendGuestbookEntries)
+        .always(
+          function() {
+            setTimeout(fetchGuestbook, 1000);
+          });
+
   })()
 });
