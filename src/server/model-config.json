@@ -14,7 +14,7 @@
     ]
   },
   "entry": {
-    "dataSource": "in-memory",
+    "dataSource": "mongo",
     "public": true
   }
 }
