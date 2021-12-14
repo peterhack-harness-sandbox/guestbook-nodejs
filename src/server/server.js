@@ -3,7 +3,8 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-'use strict';
+// 'use strict';
+require('newrelic');
 
 const loopback = require('loopback');
 const boot = require('loopback-boot');
