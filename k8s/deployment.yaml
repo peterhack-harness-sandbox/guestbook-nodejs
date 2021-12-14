@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: guestbook-nodejs
-        image: peterhack/guestbook-nodejs:latest
+        image: peterhack/guestbook-nodejs:<+pipeline.sequenceId>
         env:
         resources:
           requests:
