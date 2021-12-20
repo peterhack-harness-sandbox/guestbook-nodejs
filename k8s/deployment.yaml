@@ -27,7 +27,7 @@ spec:
             cpu: 100m
             memory: 100Mi
         ports:
-        - containerPort: 80
+        - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
@@ -36,8 +36,8 @@ metadata:
   labels:
     app: guestbook-nodejs
 spec:
-  # type: LoadBalancer
-  type: NodePort
+  type: LoadBalancer
+  #type: NodePort
   ports:
     # the port that this service should serve on
   - port: 3000
