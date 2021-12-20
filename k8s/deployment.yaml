@@ -36,8 +36,8 @@ metadata:
   labels:
     app: guestbook-nodejs
 spec:
-  type: LoadBalancer
-  #type: NodePort
+  #ype: LoadBalancer
+  type: NodePort
   ports:
     # the port that this service should serve on
   - port: 3000
