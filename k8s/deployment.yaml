@@ -42,4 +42,4 @@ spec:
     # the port that this service should serve on
   - protocol: TCP
     port: 3000
-    TargetPort: 3000
+    targetPort: 3000
