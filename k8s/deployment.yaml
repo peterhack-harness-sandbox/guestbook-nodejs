@@ -36,6 +36,8 @@ metadata:
   labels:
     app: guestbook-nodejs
 spec:
+  selector:
+    app: guestbook-nodejs
   type: LoadBalancer
   #type: NodePort
   ports:
